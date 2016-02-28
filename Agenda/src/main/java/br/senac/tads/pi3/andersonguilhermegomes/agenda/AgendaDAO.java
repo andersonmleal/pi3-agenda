@@ -40,7 +40,7 @@ public class AgendaDAO {
         Statement stmt = null;
         Connection conn = null;
 
-        String sql = "SELECT ID_PESSOA, NM_PESSOA, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL FROM TB_PESSOA";
+        String sql = "SELECT ID_CONTATO, NM_CONTATO, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL FROM TB_PESSOA";
         try {
             conn = obterConexao();
             stmt = conn.createStatement();
@@ -49,8 +49,8 @@ public class AgendaDAO {
             DateFormat formatadorData = new SimpleDateFormat("dd/MM/yyyy");
 
             while (resultados.next()) {
-                Long id = resultados.getLong("ID_PESSOA");
-                String nome = resultados.getString("NM_PESSOA");
+                Long id = resultados.getLong("ID_CONTATO");
+                String nome = resultados.getString("NM_CONTATO");
                 Date dataNasc = resultados.getDate("DT_NASCIMENTO");
                 String email = resultados.getString("VL_EMAIL");
                 String telefone = resultados.getString("VL_TELEFONE");
@@ -80,27 +80,19 @@ public class AgendaDAO {
 
     }
     
-    public void alterarPessoa() {
+    public void alterarPessoa(Agenda agenda, int id) {
         Statement stmt = null;
         Connection conn = null;
 
-        String sql = "SELECT ID_PESSOA, NM_PESSOA, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL FROM TB_PESSOA";
+        String sql = "UPDATE TB_CONTATO set NM_CONTATO = '" + agenda.getNome() + 
+                "', DT_NASCIMENTO =" + agenda.getDataNasc() + ", VL_TELEFONE =" + agenda.getTelefone() +
+                " VL_EMAIL = " + agenda.getEmail() +" where ID_CONTATO =" + id + ";";
         try {
             conn = obterConexao();
             stmt = conn.createStatement();
-            ResultSet resultados = stmt.executeQuery(sql);
+            stmt.executeUpdate(sql);
 
-            DateFormat formatadorData = new SimpleDateFormat("dd/MM/yyyy");
-
-            while (resultados.next()) {
-                Long id = resultados.getLong("ID_PESSOA");
-                String nome = resultados.getString("NM_PESSOA");
-                Date dataNasc = resultados.getDate("DT_NASCIMENTO");
-                String email = resultados.getString("VL_EMAIL");
-                String telefone = resultados.getString("VL_TELEFONE");
-                System.out.println(String.valueOf(id) + ", " + nome + ", " + formatadorData.format(dataNasc) + ", " + email + ", " + telefone);
-            }
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(AgendaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
