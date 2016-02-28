@@ -85,8 +85,8 @@ public class AgendaDAO {
         Connection conn = null;
 
         String sql = "UPDATE TB_CONTATO set NM_CONTATO = '" + agenda.getNome() + 
-                "', DT_NASCIMENTO =" + agenda.getDataNasc() + ", VL_TELEFONE =" + agenda.getTelefone() +
-                " VL_EMAIL = " + agenda.getEmail() +" where ID_CONTATO =" + id + ";";
+                "', DT_NASCIMENTO = " + agenda.getDataNasc() + ", VL_TELEFONE = '" + agenda.getTelefone() +
+                "' VL_EMAIL = '" + agenda.getEmail() +"' DT_CADASTRO = CURRENT_TIMESTAMP where ID_CONTATO =" + id + ";";
         try {
             conn = obterConexao();
             stmt = conn.createStatement();
