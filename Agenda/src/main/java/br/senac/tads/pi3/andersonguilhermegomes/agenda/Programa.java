@@ -30,10 +30,6 @@ public class Programa {
 
                     break;
                 case 2:
-
-                    break;
-                case 3:
-
                     try {
                         // insere dados agenda
                         System.out.print("Digite o codigo da pessoa: ");
@@ -56,7 +52,7 @@ public class Programa {
                         // conexao com bd
                         AgendaDAO bd = new AgendaDAO();
                         bd.alterarPessoa(a, id);
-                        
+
                         System.out.println("-- DADOS ALTERADOS --");
                     } catch (Exception e) {
 
@@ -65,9 +61,18 @@ public class Programa {
                     }
 
                     break;
-                case 4:
+                case 3:
+                    System.out.print("Digite o codigo do contato: ");
+                    int id = teclado.nextInt();
+
+                    // conexao com bd
                     AgendaDAO bd = new AgendaDAO();
-                    bd.listarPessoas();
+                    bd.deletaContato(id);
+                    
+                    break;
+                case 4:
+                   // AgendaDAO bd = new AgendaDAO();
+                    //bd.listarPessoas();
 
                     break;
 
