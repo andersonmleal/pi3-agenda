@@ -5,9 +5,9 @@
  */
 package br.senac.tads.pi3.andersonguilhermegomes.agenda;
 
-import java.sql.Date;
-import java.text.DateFormat;
+
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -24,7 +24,9 @@ public class Programa {
         while (opcao != 0) {
 
             System.out.println("1 - Inserir Contato. \n2 - Editar Contato. \n3 - Remover Contato. \n4 - Listar Contato. \n0 - Encerrar");
-
+            opcao = teclado.nextInt();
+            
+            
             switch (opcao) {
                 case 1:
 
@@ -35,23 +37,20 @@ public class Programa {
                         System.out.print("Digite o codigo da pessoa: ");
                         int id = teclado.nextInt();
                         System.out.print("nome: ");
-                        String nome = teclado.nextLine();
-                        System.out.print("Nascimeto: ");
+                        String nome = teclado.next();
+                        System.out.print("Nascimeto(DD/MM/AAAA): ");
                         String nascimento = teclado.next();
                         System.out.print("telefone: ");
                         String telefone = teclado.next();
                         System.out.print("email: ");
+                        String email = teclado.next();
 
-                        DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
-                        Date date = (Date) formatter.parse(nascimento);
 
                         // cria objeto agenda
-                        String email = teclado.next();
-                        Agenda a = new Agenda(nome, date, telefone, email);
+                        Agenda a = new Agenda(nome, nascimento, telefone, email);
 
                         // conexao com bd
-                        AgendaDAO bd = new AgendaDAO();
-                        bd.alterarPessoa(a, id);
+                        a.alterarPessoa(a, id);
 
                         System.out.println("-- DADOS ALTERADOS --");
                     } catch (Exception e) {
@@ -66,13 +65,14 @@ public class Programa {
                     int id = teclado.nextInt();
 
                     // conexao com bd
-                    AgendaDAO bd = new AgendaDAO();
-                    bd.deletaContato(id);
-                    
+                    Agenda a = new Agenda();
+                   // a.deletaContato(id);
+
                     break;
                 case 4:
-                   // AgendaDAO bd = new AgendaDAO();
-                    //bd.listarPessoas();
+
+                    Agenda ab = new Agenda();
+                    ab.listarPessoas();
 
                     break;
 
