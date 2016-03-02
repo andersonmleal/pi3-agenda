@@ -28,9 +28,7 @@ public class Programa {
             switch (opcao) {
                 case 1:
                     try {
-                        // insere dados agenda
-                        System.out.print("Digite o codigo da pessoa: ");
-                        int id = teclado.nextInt();
+                        
                         System.out.print("nome: ");
                         String nome = teclado.next();
                         System.out.print("Nascimeto(DD/MM/AAAA): ");
