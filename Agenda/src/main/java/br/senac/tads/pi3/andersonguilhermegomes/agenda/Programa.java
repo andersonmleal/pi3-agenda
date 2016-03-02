@@ -44,7 +44,7 @@ public class Programa {
                         Agenda a = new Agenda(nome, nascimento, telefone, email);
 
                         // conexao com bd
-                        a.alterarPessoa(a, id);
+                        a.inserirContato(a);
 
                         System.out.println("-- DADOS ALTERADOS --");
                     } catch (Exception e) {
