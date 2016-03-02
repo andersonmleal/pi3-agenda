@@ -157,6 +157,7 @@ public class Agenda {
     public void inserirContato(Agenda agenda) throws ParseException {
         Statement stmt = null;
         Connection conn = null;
+        
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Date parsed = format.parse(agenda.getDataNasc());
         java.sql.Date dataNasc = new java.sql.Date(parsed.getTime());
@@ -166,7 +167,7 @@ public class Agenda {
         try {
             conn = obterConexao();
             stmt = conn.createStatement();
-            stmt.executeUpdate(sql);
+            stmt.executeQuery(sql);
 
         } catch (SQLException ex) {
             Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
