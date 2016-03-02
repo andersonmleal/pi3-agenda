@@ -162,7 +162,7 @@ public class Agenda {
         Date parsed = format.parse(agenda.getDataNasc());
         java.sql.Date dataNasc = new java.sql.Date(parsed.getTime());
 
-        String sql = "INSERT TB_CONTATO set NM_CONTATO = '" + agenda.getNome() + "', DT_NASCIMENTO = DATE('" + dataNasc + "') , VL_TELEFONE = '" + agenda.getTelefone() + "', VL_EMAIL = '" + agenda.getEmail() + "'";
+        String sql = "INSERT INTO TB_CONTATO VALUES ('" + agenda.getNome() + "', DATE('" + dataNasc + "'), '" + agenda.getTelefone() + "', '" + agenda.getEmail() + "')";
 
         try {
             conn = obterConexao();
