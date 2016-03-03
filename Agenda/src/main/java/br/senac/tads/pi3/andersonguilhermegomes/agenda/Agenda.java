@@ -110,7 +110,82 @@ public class Agenda {
         return conn;
     }
 
-    public void listarPessoas() {
+    public void inserirContato(Agenda agenda) throws ParseException {
+        Statement stmt = null;
+        Connection conn = null;
+
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date parsed = format.parse(agenda.getDataNasc());
+        java.sql.Date dataNasc = new java.sql.Date(parsed.getTime());
+
+        String sql = "INSERT INTO TB_CONTATO VALUES ('" + agenda.getNome() + "', DATE('" + dataNasc + "'), '" + agenda.getTelefone() + "', '" + agenda.getEmail() + "')";
+
+        try {
+            conn = obterConexao();
+            stmt = conn.createStatement();
+            stmt.executeQuery(sql);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
+    public void alterarContato(Agenda ag, int id) throws ParseException {
+        Statement stmt = null;
+        Connection conn = null;
+
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date parsed = format.parse(ag.getDataNasc());
+        java.sql.Date dataNasc = new java.sql.Date(parsed.getTime());
+
+        String sql = "UPDATE TB_CONTATO set NM_CONTATO = '" + ag.getNome() + "', DT_NASCIMENTO = DATE('" + dataNasc + "') , VL_TELEFONE = '" + ag.getTelefone() + "', VL_EMAIL = '" + ag.getEmail() + "' where ID_CONTATO = 1";
+
+        try {
+            conn = obterConexao();
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
+    }
+
+    public void listaContato() {
         Statement stmt = null;
         Connection conn = null;
 
@@ -154,58 +229,15 @@ public class Agenda {
 
     }
 
-    public void inserirContato(Agenda agenda) throws ParseException {
-        Statement stmt = null;
-        Connection conn = null;
-        
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Date parsed = format.parse(agenda.getDataNasc());
-        java.sql.Date dataNasc = new java.sql.Date(parsed.getTime());
-
-        String sql = "INSERT INTO TB_CONTATO VALUES ('" + agenda.getNome() + "', DATE('" + dataNasc + "'), '" + agenda.getTelefone() + "', '" + agenda.getEmail() + "')";
-
-        try {
-            conn = obterConexao();
-            stmt = conn.createStatement();
-            stmt.executeQuery(sql);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    }
-
-    public void alterarPessoa(Agenda ag, int id) throws ParseException {
+    public void deletaContato(int id) {
         Statement stmt = null;
         Connection conn = null;
 
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Date parsed = format.parse(ag.getDataNasc());
-        java.sql.Date dataNasc = new java.sql.Date(parsed.getTime());
-
-        String sql = "UPDATE TB_CONTATO set NM_CONTATO = '" + ag.getNome() + "', DT_NASCIMENTO = DATE('" + dataNasc + "') , VL_TELEFONE = '" + ag.getTelefone() + "', VL_EMAIL = '" + ag.getEmail() + "' where ID_CONTATO = 1";
-
+        String sql = "DELETE FROM TB_CONTATO WHERE ID_CONTATO = " + id;
         try {
             conn = obterConexao();
             stmt = conn.createStatement();
-            stmt.executeUpdate(sql);
-
+            ResultSet resultados = stmt.executeQuery(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

@@ -70,7 +70,7 @@ public class Programa {
                         Agenda a = new Agenda(nome, nascimento, telefone, email);
 
                         // conexao com bd
-                        a.alterarPessoa(a, id);
+                        a.alterarContato(a, id);
 
                         System.out.println("-- DADOS ALTERADOS --");
                     } catch (Exception e) {
@@ -86,13 +86,13 @@ public class Programa {
 
                     // conexao com bd
                     Agenda a = new Agenda();
-                    // a.deletaContato(id);
+                     a.deletaContato(id);
 
                     break;
                 case 4:
 
                     Agenda ab = new Agenda();
-                    ab.listarPessoas();
+                    ab.listaContato();
 
                     break;
 
