@@ -5,8 +5,6 @@
  */
 package br.senac.tads.pi3.andersonguilhermegomes.agenda;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -28,7 +26,7 @@ public class Programa {
             switch (opcao) {
                 case 1:
                     try {
-                        
+
                         System.out.print("nome: ");
                         String nome = teclado.next();
                         System.out.print("Nascimeto(DD/MM/AAAA): ");
@@ -86,7 +84,7 @@ public class Programa {
 
                     // conexao com bd
                     Agenda a = new Agenda();
-                     a.deletaContato(id);
+                    a.deletaContato(id);
 
                     break;
                 case 4:
