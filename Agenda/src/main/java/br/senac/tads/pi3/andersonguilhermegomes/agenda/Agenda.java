@@ -98,15 +98,14 @@ public class Agenda {
 
     private Connection obterConexao() throws SQLException, ClassNotFoundException {
         Connection conn = null;
-
-        //passo1: registrar driver JDBC
+        // Passo 1: Registrar driver JDBC.
         Class.forName("org.apache.derby.jdbc.ClientDataSource");
 
-        //passo 2: Abrir conexão
-        conn = DriverManager.getConnection("jdbc:derby://localhost:1527/agendabd;SecurityMechanism=3",
+        // Passo 2: Abrir a conexÃ£o
+        conn = DriverManager.getConnection(
+                "jdbc:derby://localhost:1527/agendabd;SecurityMechanism=3",
                 "app", // usuario
                 "app"); // senha
-
         return conn;
     }
 
@@ -118,12 +117,14 @@ public class Agenda {
         Date parsed = format.parse(agenda.getDataNasc());
         java.sql.Date dataNasc = new java.sql.Date(parsed.getTime());
 
-        String sql = "INSERT INTO TB_CONTATO VALUES ('" + agenda.getNome() + "', DATE('" + dataNasc + "'), '" + agenda.getTelefone() + "', '" + agenda.getEmail() + "')";
+        String sql = "INSERT INTO TB_CONTATO (NM_CONTATO, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL, DT_CADASTRO) VALUES "
+                + "('" + agenda.getNome() + "', DATE('" + dataNasc + "'), '"
+                + agenda.getTelefone() + "', '" + agenda.getEmail() + "', CURRENT_TIMESTAMP)";
 
         try {
             conn = obterConexao();
             stmt = conn.createStatement();
-            stmt.executeQuery(sql);
+            stmt.execute(sql);
 
         } catch (SQLException ex) {
             Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
@@ -203,7 +204,9 @@ public class Agenda {
                 Date dataNasc = resultados.getDate("DT_NASCIMENTO");
                 String email = resultados.getString("VL_EMAIL");
                 String telefone = resultados.getString("VL_TELEFONE");
-                System.out.println(String.valueOf(id) + ", " + nome + ", " + formatadorData.format(dataNasc) + ", " + email + ", " + telefone);
+                System.out.println("ID: " + String.valueOf(id) + "\nNOME: " + nome + "\nNASCIMENTO: " + formatadorData.format(dataNasc) + "\nE-MAIL: " + email + "\nTELEFONE: " + telefone);
+                System.out.println("---------------");
+                
             }
 
         } catch (SQLException ex) {
@@ -237,7 +240,9 @@ public class Agenda {
         try {
             conn = obterConexao();
             stmt = conn.createStatement();
-            ResultSet resultados = stmt.executeQuery(sql);
+            stmt.execute(sql);
+            System.out.println("--- CONTATO EXCLUIDO ---");
+            
         } catch (SQLException ex) {
             Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

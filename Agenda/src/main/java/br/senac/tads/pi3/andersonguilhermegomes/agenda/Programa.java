@@ -42,7 +42,7 @@ public class Programa {
                         // conexao com bd
                         a.inserirContato(a);
 
-                        System.out.println("-- DADOS ALTERADOS --");
+                        System.out.println("-- DADOS REGISTRADOS --");
                     } catch (Exception e) {
 
                         System.out.println("----- DADOS INVALIDOS -----");
